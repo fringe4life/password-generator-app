@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Password generator app</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+  <body class="flex-center">
+    <main class="container">
+    <h1 class="sr-only">Password Generator</h1>
+    
+    <div class="password-generator">
+      <div class="password-display flex-between">
+        <input type="text" id="password-output" class="password-output" placeholder="P4$5W0rD!" readonly aria-label="Generated password">
+        <button type="button" class="copy-btn flex-center" id="copy-btn" aria-label="Copy password to clipboard">
+          <img src="./assets/images/icon-copy.svg" alt="" class="copy-icon">
+        </button>
+      </div>
+
+      <div class="password-controls">
+        <div class="length-control">
+          <div class="length-header flex-between">
+            <label for="length-slider" class="length-label">Character Length</label>
+            <span class="length-value" id="length-value">8</span>
+          </div>
+          <input type="range" id="length-slider" class="length-slider" min="0" max="20" value="8" aria-label="Password length">
+        </div>
+
+        <div class="options-list">
+          <div class="option-item">
+            <input type="checkbox" id="uppercase" class="option-checkbox" checked>
+            <label for="uppercase" class="option-label">Include Uppercase Letters</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" id="lowercase" class="option-checkbox" checked>
+            <label for="lowercase" class="option-label">Include Lowercase Letters</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" id="numbers" class="option-checkbox" checked>
+            <label for="numbers" class="option-label">Include Numbers</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" id="symbols" class="option-checkbox" checked>
+            <label for="symbols" class="option-label">Include Symbols</label>
+          </div>
+        </div>
+
+        <div class="strength-meter flex-between">
+          <span class="strength-label">Strength</span>
+          <div class="strength-indicator">
+            <span class="strength-text" id="strength-text">Medium</span>
+            <div class="strength-bars">
+              <div class="strength-bar" data-strength="1"></div>
+              <div class="strength-bar" data-strength="2"></div>
+              <div class="strength-bar" data-strength="3"></div>
+              <div class="strength-bar" data-strength="4"></div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="generate-btn flex-center" id="generate-btn">
+          <span class="generate-text">Generate</span>
+          <img src="./assets/images/icon-arrow-right.svg" alt="" class="generate-icon">
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html> 
