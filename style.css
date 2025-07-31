@@ -38,6 +38,7 @@ label {
   --color-neon-green: hsl(127, 100%, 82%);
   --color-darkish-grey: 	hsl(248, 5%, 34%);
   --color-very-dark-grey: hsl(248, 10%, 15%);
+  --color-dark-blue: 	hsl(247, 11%, 15%);
   --color-red: hsl(0, 91%, 63%);
   --color-orange: hsl(13, 95%, 66%);
   --color-yellow: hsl(42, 91%, 68%);
@@ -149,7 +150,7 @@ h1 {
 
 /* Password Display */
 .password-display {
-  background-color: var(--color-darkish-grey);
+  background-color: var(--color-dark-blue);
   padding: var(--spacing-md) var(--spacing-xl);
   position: relative;
 }
@@ -200,7 +201,7 @@ h1 {
 /* Password Controls */
 .password-controls {
   display: grid;
-  background-color: var(--color-darkish-grey);
+  background-color: var(--color-dark-blue);
   padding: var(--spacing-lg) var(--spacing-xl);
   gap: var(--spacing-xl);
 }
