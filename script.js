@@ -5,7 +5,8 @@ class PasswordGenerator {
     this.initializeElements();
     this.bindEvents();
     this.updateLengthValue(); // Update length display first
-    this.generatePassword(); // Generate initial password
+    this.isFirstGenerate = true; // Track if this is the first generate click
+    this.generatePassword(); // Generate initial password (will show placeholder)
   }
 
   initializeElements() {
@@ -48,7 +49,7 @@ class PasswordGenerator {
     this.copyBtn.addEventListener('click', () => this.copyPassword());
 
     // Generate button
-    this.generateBtn.addEventListener('click', () => this.generatePassword());
+    this.generateBtn.addEventListener('click', () => this.handleGenerateClick());
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
@@ -67,6 +68,21 @@ class PasswordGenerator {
 
   updateLengthValue() {
     this.lengthValue.textContent = this.lengthSlider.value;
+  }
+
+  handleGenerateClick() {
+    // If this is the first generate click, set defaults
+    if (this.isFirstGenerate) {
+      this.lengthSlider.value = 8;
+      this.uppercaseCheckbox.checked = true;
+      this.lowercaseCheckbox.checked = true;
+      this.numbersCheckbox.checked = true;
+      this.symbolsCheckbox.checked = false;
+      this.updateLengthValue();
+      this.isFirstGenerate = false;
+    }
+    
+    this.generatePassword();
   }
 
   generatePassword() {

@@ -34,7 +34,9 @@ label {
   --color-almost-white: hsl(0, 0%, 100%);
   --color-dark-grey: hsl(248, 15%, 11%);
   --color-grey: hsl(251, 9%, 53%);
+  --color-light-grey: hsl(0, 0%, 59%);
   --color-neon-green: hsl(127, 100%, 82%);
+  --color-darkish-grey: 	hsl(248, 5%, 34%);
   --color-very-dark-grey: hsl(248, 10%, 15%);
   --color-red: hsl(0, 91%, 63%);
   --color-orange: hsl(13, 95%, 66%);
@@ -52,6 +54,7 @@ label {
   --spacing-xs: 0.5rem; /* 8px */
   --spacing-sm: 0.75rem; /* 12px */
   --spacing-md: 1rem; /* 16px */
+  --spacing-md-2: 1.25rem; /* 20px */
   --spacing-lg: 1.5rem; /* 24px */
   --spacing-xl: 2rem; /* 32px */
   --spacing-xxl: 3rem; /* 48px */
@@ -114,7 +117,7 @@ body {
   font-weight: var(--font-weight-normal);
   line-height: 1.5;
   color: var(--color-almost-white);
-  background-color: var(--color-dark-grey);
+  background: linear-gradient(to right, #14131B, #08070B );
   min-height: 100svh;
   padding: var(--spacing-md);
 }
@@ -141,18 +144,18 @@ body {
 
 /* Password Generator */
 .password-generator {
-  background-color: var(--color-very-dark-grey);
+  /* background-color: var(--color-very-dark-grey); */
   padding: var(--spacing-xl);
   border-radius: var(--border-radius);
   animation: --fade-in 0.5s ease-out;
+  display: grid;
+  gap: var(--spacing-lg)
 }
 
 /* Password Display */
 .password-display {
-  background-color: var(--color-dark-grey);
-  padding: var(--spacing-lg) var(--spacing-md);
-  border-radius: var(--border-radius);
-  margin-bottom: var(--spacing-xl);
+  background-color: var(--color-darkish-grey);
+  padding: var(--spacing-md) var(--spacing-xl);
   position: relative;
 }
 
@@ -169,7 +172,7 @@ body {
 }
 
 .password-output::placeholder {
-  color: var(--color-grey);
+  color: var(--color-light-grey);
 }
 
 .copy-btn {
@@ -202,17 +205,19 @@ body {
 /* Password Controls */
 .password-controls {
   display: grid;
-  gap: var(--spacing-lg);
+  background-color: var(--color-darkish-grey);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  gap: var(--spacing-xl);
+}
+
+
+.length-control {
+  display: grid;
+  gap: var(--spacing-md)
 }
 
 /* Length Control */
-.length-control {
-  margin-bottom: var(--spacing-lg);
-}
 
-.length-header {
-  margin-bottom: var(--spacing-md);
-}
 
 .length-label {
   font-size: var(--font-size-body);
@@ -231,10 +236,10 @@ body {
   width: 100%;
   height: 0.5rem; /* 8px */
   background: var(--color-dark-grey);
-  border-radius: 0.25rem; /* 4px */
   outline: none;
   appearance: none;
   -webkit-appearance: none;
+  margin: calc(1.75rem - 1rem) 0;
 }
 
 .length-slider::-webkit-slider-thumb {
@@ -270,7 +275,6 @@ body {
 .options-list {
   display: grid;
   gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
 }
 
 .option-item {
@@ -294,9 +298,7 @@ body {
 /* Strength Meter */
 .strength-meter {
   background-color: var(--color-dark-grey);
-  padding: var(--spacing-lg) var(--spacing-md);
-  border-radius: var(--border-radius);
-  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-lg) var(--spacing-xl);
 }
 
 .strength-label {
@@ -356,8 +358,7 @@ body {
 .generate-btn {
   background-color: var(--color-neon-green);
   border: none;
-  padding: var(--spacing-lg) var(--spacing-md);
-  border-radius: var(--border-radius);
+  padding: var(--spacing-md-2) var(--spacing-md);
   color: var(--color-dark-grey);
   font-family: var(--font-family-primary);
   font-size: var(--font-size-body);
@@ -440,7 +441,6 @@ body {
   }
 
   .strength-meter {
-    flex-direction: column;
     gap: var(--spacing-md);
     align-items: flex-start;
   }
