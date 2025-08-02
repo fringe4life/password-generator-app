@@ -9,6 +9,8 @@
  * @description Handles all password generation logic and UI interactions
  */
 class PasswordGenerator {
+  #strengthLevels; // Private field for strength level configurations
+  
   /**
    * Initialize the password generator
    * @constructor
@@ -19,6 +21,15 @@ class PasswordGenerator {
     this.updateLengthValue(); // Update length display first
     this.isFirstGenerate = true; // Track if this is the first generate click
     this.generatePassword(); // Generate initial password (will show placeholder)
+    
+    // Strength level configurations (zero-indexed)
+    this.#strengthLevels = [
+      { level: 'weak', text: 'Too Weak' },
+      { level: 'weak', text: 'Weak' },
+      { level: 'medium', text: 'Medium' },
+      { level: 'strong', text: 'Strong' },
+      { level: 'very-strong', text: 'Very Strong' }
+    ];
   }
 
   /**
@@ -245,17 +256,14 @@ class PasswordGenerator {
     const hasUppercase = /[A-Z]/.test(password);
     const hasLowercase = /[a-z]/.test(password);
     const hasNumbers = /\d/.test(password);
-    const hasSymbols = /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(password);
+    const hasSymbols = /[!@#$%^&*()_+\-=[\]{}|;:,.<>?]/.test(password);
     
     const varietyCount = [hasUppercase, hasLowercase, hasNumbers, hasSymbols]
       .filter(Boolean).length;
     
     score += varietyCount - 1; // -1 because we need at least 1 type
     
-    // Bonus for mixed case
-    if (hasUppercase && hasLowercase) score += 1;
-    
-    // Bonus for numbers and symbols
+    // Bonus for numbers and symbols (only if both are present)
     if (hasNumbers && hasSymbols) score += 1;
     
     return Math.min(score, 4); // Cap at 4 for strength levels
@@ -273,39 +281,18 @@ class PasswordGenerator {
     });
 
     // Check if there's a password value (not placeholder)
-    const hasPassword = this.passwordOutput.value && this.passwordOutput.value !== 'Please select at least one option';
+    const hasPassword = this.passwordOutput.value !== '';
 
-    // Determine strength level and text
-    let strengthLevel, strengthText;
-    
-    if (!hasPassword) {
-      strengthText = '';
-    } else if (strength === 0) {
-      strengthLevel = 'weak';
-      strengthText = 'Too Weak';
-    } else if (strength === 1) {
-      strengthLevel = 'weak';
-      strengthText = 'Weak';
-    } else if (strength === 2) {
-      strengthLevel = 'medium';
-      strengthText = 'Medium';
-    } else if (strength === 3) {
-      strengthLevel = 'strong';
-      strengthText = 'Strong';
-    } else {
-      strengthLevel = 'very-strong';
-      strengthText = 'Very Strong';
-    }
+    // Get strength level and text from lookup array
+    const strengthConfig = hasPassword ? this.#strengthLevels[strength] : { level: '', text: '' };
+    const { level: strengthLevel, text: strengthText } = strengthConfig;
 
     // Update strength text
     this.strengthText.textContent = strengthText;
 
     // Fill appropriate bars only if there's a password
     if (hasPassword) {
-      // Ensure at least one bar is filled for strength 0 (Too Weak)
-      const barsToFill = Math.max(1, strength);
-      
-      for (let i = 0; i < barsToFill; i++) {
+      for (let i = 0; i < strength; i++) {
         if (this.strengthBars[i]) {
           this.strengthBars[i].classList.add('filled', strengthLevel);
           
@@ -328,14 +315,14 @@ class PasswordGenerator {
   async copyPassword() {
     const password = this.passwordOutput.value;
     
-    if (!password || password === 'Please select at least one option') {
+    if (!password ) {
       return;
     }
 
     try {
       await navigator.clipboard.writeText(password);
       this.showCopySuccess();
-    } catch (err) {
+    } catch {
       // Fallback for older browsers
       this.fallbackCopyTextToClipboard(password);
     }
