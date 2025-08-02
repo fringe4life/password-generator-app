@@ -142,10 +142,10 @@ label {
 
   @keyframes --strength-fill {
     from {
-      scale: 0;
+      scale: 0.5 1;
     }
     to {
-      scale: 1;
+      scale: 1 1;
     }
   }
 }
@@ -256,7 +256,7 @@ h1 {
 }
 
 .length-value {
-  font-size: var(--font-size-heading);
+  font-size: var(--font-size-large);
   color: var(--color-neon-green);
   font-weight: var(--font-weight-bold);
 }
@@ -360,40 +360,29 @@ h1 {
   block-size: var(--size-lg);
   border: var(--border-width-thin) solid var(--color-almost-white);
   background: transparent;
-  position: relative;
-  overflow: hidden;
-  transition: border-color var(--transition-normal);
+  transition: border-color var(--transition-normal), background-color var(--transition-normal);
+  transform-origin: left center;
 }
 
-.strength-bar::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--color-red);
-  scale: 0;
-  transition: scale var(--transition-normal), background-color var(--transition-normal);
-  transform-origin: center;
+.strength-bar.filled.weak {
+  --strength-color: var(--color-red);
 }
 
-.strength-bar.filled::before {
-  scale: 1;
-  animation: --strength-fill 0.3s ease-out;
+.strength-bar.filled.medium {
+  --strength-color: var(--color-orange);
 }
 
-.strength-bar.filled.weak::before {
-  background-color: var(--color-red);
+.strength-bar.filled.strong {
+  --strength-color: var(--color-yellow);
 }
 
-.strength-bar.filled.medium::before {
-  background-color: var(--color-orange);
+.strength-bar.filled.very-strong {
+  --strength-color: var(--color-neon-green);
 }
 
-.strength-bar.filled.strong::before {
-  background-color: var(--color-yellow);
-}
-
-.strength-bar.filled.very-strong::before {
-  background-color: var(--color-neon-green);
+.strength-bar.filled:is(.weak, .medium, .strong, .very-strong) {
+  border-color: var(--strength-color);
+  background-color: var(--strength-color);
 }
 
 /* Generate Button */
@@ -474,8 +463,7 @@ h1 {
     padding: var(--spacing-lg);
   }
 
-  .password-output,
-  .length-value {
+  .password-output {
     font-size: var(--font-size-body);
   }
 
@@ -509,5 +497,9 @@ h1 {
 
   h1, .option-label {
     font-size: var(--font-size-body);
+  }
+
+  .length-value {
+    font-size: var(--font-size-heading);
   }
 } 

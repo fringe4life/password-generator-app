@@ -110,6 +110,8 @@ class PasswordGenerator {
       this.isFirstGenerate = false;
     }
     
+    // Ensure length value is up to date before generating
+    this.updateLengthValue();
     this.generatePassword();
   }
 
@@ -176,11 +178,8 @@ class PasswordGenerator {
     // Shuffle the password
     password = this.shuffleString(password);
 
-    // Update password display with animation
-    this.animatePasswordChange(password);
-
-    // Update strength meter
-    this.updateStrengthMeter(this.calculatePasswordStrength(password));
+    // Update password display with animation and strength meter
+    this.animatePasswordChange(password, this.calculatePasswordStrength(password));
   }
 
   /**
@@ -201,9 +200,10 @@ class PasswordGenerator {
   /**
    * Animate password change with fade effect
    * @param {string} newPassword - The new password to display
+   * @param {number} strength - The password strength to update
    * @private
    */
-  animatePasswordChange(newPassword) {
+  animatePasswordChange(newPassword, strength) {
     const currentPassword = this.passwordOutput.value;
     if (currentPassword === newPassword) return;
 
@@ -213,6 +213,9 @@ class PasswordGenerator {
     setTimeout(() => {
       this.passwordOutput.value = newPassword;
       this.passwordOutput.style.opacity = '1';
+      
+      // Update strength meter after password is set
+      this.updateStrengthMeter(strength);
       
       // Add subtle animation
       if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
@@ -299,11 +302,20 @@ class PasswordGenerator {
 
     // Fill appropriate bars only if there's a password
     if (hasPassword) {
-      for (let i = 0; i < strength; i++) {
+      // Ensure at least one bar is filled for strength 0 (Too Weak)
+      const barsToFill = Math.max(1, strength);
+      
+      for (let i = 0; i < barsToFill; i++) {
         if (this.strengthBars[i]) {
           this.strengthBars[i].classList.add('filled', strengthLevel);
           
-          // Animation is now handled by CSS
+          // Add animation if motion is preferred
+          if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+            this.strengthBars[i].style.animation = '--strength-fill 0.3s ease-out';
+            setTimeout(() => {
+              this.strengthBars[i].style.animation = '';
+            }, 300);
+          }
         }
       }
     }
