@@ -198,15 +198,15 @@ h1 {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-heading);
   font-weight: var(--font-weight-bold);
-  inline-size: 100%;
+  flex: auto;
   outline: none;
   cursor: text;
 }
 
 .password-output::placeholder {
   color: var(--color-light-grey);
-  font-size: inherit;
-  font-weight: inherit;
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-bold);
 
 }
 
