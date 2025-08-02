@@ -142,10 +142,10 @@ label {
 
   @keyframes --strength-fill {
     from {
-      inline-size: 0;
+      scale: 0;
     }
     to {
-      inline-size: 100%;
+      scale: 1;
     }
   }
 }
@@ -173,7 +173,6 @@ h1 {
   font-size: var(--font-size-heading);
   color: var(--color-grey);
   text-align: center;
-  vertical-align: top;
 }
 
 /* Password Generator */
@@ -361,26 +360,39 @@ h1 {
   block-size: var(--size-lg);
   border: var(--border-width-thin) solid var(--color-almost-white);
   background: transparent;
-  transition: border-color var(--transition-normal), background-color var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition-normal);
 }
 
-.strength-bar.filled {
-  border-color: transparent;
+.strength-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-red);
+  scale: 0;
+  transition: scale var(--transition-normal), background-color var(--transition-normal);
+  transform-origin: center;
 }
 
-.strength-bar.filled.weak {
+.strength-bar.filled::before {
+  scale: 1;
+  animation: --strength-fill 0.3s ease-out;
+}
+
+.strength-bar.filled.weak::before {
   background-color: var(--color-red);
 }
 
-.strength-bar.filled.medium {
+.strength-bar.filled.medium::before {
   background-color: var(--color-orange);
 }
 
-.strength-bar.filled.strong {
+.strength-bar.filled.strong::before {
   background-color: var(--color-yellow);
 }
 
-.strength-bar.filled.very-strong {
+.strength-bar.filled.very-strong::before {
   background-color: var(--color-neon-green);
 }
 
@@ -405,7 +417,7 @@ h1 {
   translate: 0 var(--animation-translate-y);
 }
 
-.generate-btn:active {
+.generate-btn:is(:active, :disabled) {
   translate: 0 0;
 }
 
@@ -417,7 +429,6 @@ h1 {
 .generate-btn:disabled {
   background-color: var(--color-grey);
   cursor: not-allowed;
-  translate: 0 0;
 }
 
 .generate-icon {
@@ -463,10 +474,7 @@ h1 {
     padding: var(--spacing-lg);
   }
 
-  .password-output {
-    font-size: var(--font-size-body);
-  }
-
+  .password-output,
   .length-value {
     font-size: var(--font-size-body);
   }

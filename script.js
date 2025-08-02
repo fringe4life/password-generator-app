@@ -303,13 +303,7 @@ class PasswordGenerator {
         if (this.strengthBars[i]) {
           this.strengthBars[i].classList.add('filled', strengthLevel);
           
-          // Add animation if motion is preferred
-          if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-            this.strengthBars[i].style.animation = '--strength-fill 0.3s ease-out';
-            setTimeout(() => {
-              this.strengthBars[i].style.animation = '';
-            }, 300);
-          }
+          // Animation is now handled by CSS
         }
       }
     }
