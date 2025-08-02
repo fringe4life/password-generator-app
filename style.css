@@ -61,7 +61,8 @@ label {
   --spacing-xs: 0.5rem; /* 8px */
   --spacing-sm: 0.75rem; /* 12px */
   --spacing-md: 1rem; /* 16px */
-  --spacing-md-2: 1.25rem; /* 20px */
+  --spacing-md-lg: 1.125rem; /* 18px */
+  --spacing-lg-sm: 1.25rem; /* 20px */
   --spacing-lg: 1.5rem; /* 24px */
   --spacing-xl: 2rem; /* 32px */
   --spacing-xxl: 3rem; /* 48px */
@@ -77,6 +78,7 @@ label {
   --size-md: 1.25rem; /* 20px */
   --size-lg: 1.75rem; /* 28px */
   --size-xl: 3.5rem; /* 56px */
+  --size-2xl: 4rem; /* 64px */
 
   /* Border radius */
   --border-radius: 0.5rem; /* 8px */
@@ -185,7 +187,7 @@ h1 {
 /* Password Display */
 .password-display {
   background-color: var(--color-dark-blue);
-  padding: var(--spacing-md) var(--spacing-xl);
+  padding: var(--spacing-md-lg) var(--spacing-xl);
   position: relative;
 }
 
@@ -208,7 +210,6 @@ h1 {
 .copy-btn {
   background: none;
   border: none;
-  padding: var(--spacing-xs);
   border-radius: var(--border-radius);
   transition: var(--transition-fast);
 }
@@ -353,11 +354,13 @@ h1 {
 .strength-bars {
   display: flex;
   gap: var(--spacing-xs);
+  inline-size: var(--size-2xl);
+  aspect-ratio: 8 / 3;
+  contain: strict;
 }
 
 .strength-bar {
   inline-size: var(--size-xs);
-  block-size: var(--size-lg);
   border: var(--border-width-thin) solid var(--color-almost-white);
   background: transparent;
   transition: border-color var(--transition-normal), background-color var(--transition-normal);
@@ -365,31 +368,31 @@ h1 {
 }
 
 .strength-bar.filled.weak {
-  --strength-color: var(--color-red);
+  --_strength-color: var(--color-red);
 }
 
 .strength-bar.filled.medium {
-  --strength-color: var(--color-orange);
+  --_strength-color: var(--color-orange);
 }
 
 .strength-bar.filled.strong {
-  --strength-color: var(--color-yellow);
+  --_strength-color: var(--color-yellow);
 }
 
 .strength-bar.filled.very-strong {
-  --strength-color: var(--color-neon-green);
+  --_strength-color: var(--color-neon-green);
 }
 
 .strength-bar.filled:is(.weak, .medium, .strong, .very-strong) {
-  border-color: var(--strength-color);
-  background-color: var(--strength-color);
+  border-color: var(--_strength-color);
+  background-color: var(--_strength-color);
 }
 
 /* Generate Button */
 .generate-btn {
   background-color: var(--color-neon-green);
   border: none;
-  padding: var(--spacing-md-2) var(--spacing-md);
+  padding: var(--spacing-lg-sm) var(--spacing-md);
   color: var(--color-dark-grey);
   font-family: var(--font-family-primary);
   font-size: var(--font-size-body);
