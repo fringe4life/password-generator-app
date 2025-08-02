@@ -191,13 +191,16 @@ h1 {
   position: relative;
 }
 
+.password-output, .password-output::placeholder {
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-bold);
+}
+
 .password-output {
   background: none;
   border: none;
   color: var(--color-almost-white);
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-heading);
-  font-weight: var(--font-weight-bold);
   flex: auto;
   outline: none;
   cursor: text;
@@ -205,9 +208,6 @@ h1 {
 
 .password-output::placeholder {
   color: var(--color-light-grey);
-  font-size: var(--font-size-heading);
-  font-weight: var(--font-weight-bold);
-
 }
 
 .copy-btn {
@@ -491,6 +491,10 @@ h1 {
   
   .password-generator {
     padding: var(--spacing-md);
+  }
+
+  .password-output, .password-output::placeholder {
+    font-size: var(--font-size-large);
   }
 
   .password-display, .password-controls {
