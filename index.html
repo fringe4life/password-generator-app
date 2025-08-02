@@ -9,22 +9,22 @@
   <title>Frontend Mentor | Password generator app</title>
   <link rel="stylesheet" href="style.css">
 </head>
-  <body class="flex-center">
+  <body>
     <main class="container">
     <h1 >Password Generator</h1>
     
     <div class="password-generator">
-      <div class="password-display flex-between">
+      <div class="password-display between">
         <input type="text" id="password-output" class="password-output" placeholder="P4$5W0rD!" readonly aria-label="Generated password">
-        <button type="button" class="copy-btn flex-center" id="copy-btn" aria-label="Copy password to clipboard">
+        <button type="button" class="copy-btn center" id="copy-btn" aria-label="Copy password to clipboard">
           <img src="./assets/images/icon-copy.svg" alt="" class="copy-icon">
         </button>
       </div>
 
       <div class="password-controls">
         <div class="length-control">
-          <div class="length-header flex-between">
-            <label for="length-slider" class="length-label">Character Length</label>
+          <div class="length-header between">
+            <label for="length-slider" class="length-label form-label">Character Length</label>
             <span class="length-value" id="length-value">0</span>
           </div>
           <input type="range" id="length-slider" class="length-slider" min="0" max="20" value="0" aria-label="Password length">
@@ -33,23 +33,23 @@
         <div class="options-list">
           <div class="option-item">
             <input type="checkbox" id="uppercase" class="option-checkbox">
-            <label for="uppercase" class="option-label">Include Uppercase Letters</label>
+            <label for="uppercase" class="option-label form-label">Include Uppercase Letters</label>
           </div>
           <div class="option-item">
             <input type="checkbox" id="lowercase" class="option-checkbox">
-            <label for="lowercase" class="option-label">Include Lowercase Letters</label>
+            <label for="lowercase" class="option-label form-label">Include Lowercase Letters</label>
           </div>
           <div class="option-item">
             <input type="checkbox" id="numbers" class="option-checkbox">
-            <label for="numbers" class="option-label">Include Numbers</label>
+            <label for="numbers" class="option-label form-label">Include Numbers</label>
           </div>
           <div class="option-item">
             <input type="checkbox" id="symbols" class="option-checkbox">
-            <label for="symbols" class="option-label">Include Symbols</label>
+            <label for="symbols" class="option-label form-label">Include Symbols</label>
           </div>
         </div>
 
-        <div class="strength-meter flex-between">
+        <div class="strength-meter between">
           <span class="strength-label">Strength</span>
           <div class="strength-indicator">
             <span class="strength-text" id="strength-text">Medium</span>
@@ -62,7 +62,7 @@
           </div>
         </div>
 
-        <button type="button" class="generate-btn flex-center" id="generate-btn">
+        <button type="button" class="generate-btn center" id="generate-btn">
           <span class="generate-text">Generate</span>
           <img src="./assets/images/icon-arrow-right.svg" alt="" class="generate-icon">
         </button>

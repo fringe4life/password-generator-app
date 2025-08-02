@@ -1,6 +1,18 @@
-// Password Generator App JavaScript
+/**
+ * Password Generator App JavaScript
+ * @fileoverview Main application logic for the password generator
+ */
 
+/**
+ * Password Generator Class
+ * @class PasswordGenerator
+ * @description Handles all password generation logic and UI interactions
+ */
 class PasswordGenerator {
+  /**
+   * Initialize the password generator
+   * @constructor
+   */
   constructor() {
     this.initializeElements();
     this.bindEvents();
@@ -9,6 +21,10 @@ class PasswordGenerator {
     this.generatePassword(); // Generate initial password (will show placeholder)
   }
 
+  /**
+   * Initialize all DOM elements
+   * @private
+   */
   initializeElements() {
     // Password display
     this.passwordOutput = document.getElementById('password-output');
@@ -32,6 +48,10 @@ class PasswordGenerator {
     this.generateBtn = document.getElementById('generate-btn');
   }
 
+  /**
+   * Bind all event listeners
+   * @private
+   */
   bindEvents() {
     // Length slider
     this.lengthSlider.addEventListener('input', () => {
@@ -52,24 +72,32 @@ class PasswordGenerator {
     this.generateBtn.addEventListener('click', () => this.handleGenerateClick());
 
     // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      if (e.ctrlKey || e.metaKey) {
-        if (e.key === 'Enter') {
-          e.preventDefault();
+    document.addEventListener('keydown', ({ ctrlKey, metaKey, key, preventDefault }) => {
+      if (ctrlKey || metaKey) {
+        if (key === 'Enter') {
+          preventDefault();
           this.generatePassword();
         }
-        if (e.key === 'c' && document.activeElement === this.passwordOutput) {
-          e.preventDefault();
+        if (key === 'c' && document.activeElement === this.passwordOutput) {
+          preventDefault();
           this.copyPassword();
         }
       }
     });
   }
 
+  /**
+   * Update the length value display
+   * @private
+   */
   updateLengthValue() {
     this.lengthValue.textContent = this.lengthSlider.value;
   }
 
+  /**
+   * Handle generate button click with first-time setup
+   * @private
+   */
   handleGenerateClick() {
     // If this is the first generate click, set defaults
     if (this.isFirstGenerate) {
@@ -85,6 +113,10 @@ class PasswordGenerator {
     this.generatePassword();
   }
 
+  /**
+   * Generate a new password based on current settings
+   * @private
+   */
   generatePassword() {
     const length = parseInt(this.lengthSlider.value);
     const hasUppercase = this.uppercaseCheckbox.checked;
@@ -102,7 +134,7 @@ class PasswordGenerator {
 
     // Validate that at least one option is selected
     if (!hasUppercase && !hasLowercase && !hasNumbers && !hasSymbols) {
-      this.passwordOutput.value = 'Please select at least one option';
+      
       this.updateStrengthMeter(0);
       this.generateBtn.disabled = true;
       return;
@@ -151,6 +183,12 @@ class PasswordGenerator {
     this.updateStrengthMeter(this.calculatePasswordStrength(password));
   }
 
+  /**
+   * Shuffle a string using Fisher-Yates algorithm
+   * @param {string} str - The string to shuffle
+   * @returns {string} The shuffled string
+   * @private
+   */
   shuffleString(str) {
     const arr = str.split('');
     for (let i = arr.length - 1; i > 0; i--) {
@@ -160,6 +198,11 @@ class PasswordGenerator {
     return arr.join('');
   }
 
+  /**
+   * Animate password change with fade effect
+   * @param {string} newPassword - The new password to display
+   * @private
+   */
   animatePasswordChange(newPassword) {
     const currentPassword = this.passwordOutput.value;
     if (currentPassword === newPassword) return;
@@ -173,14 +216,20 @@ class PasswordGenerator {
       
       // Add subtle animation
       if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-        this.passwordOutput.style.transform = 'scale(1.02)';
+        this.passwordOutput.style.scale = '1.02';
         setTimeout(() => {
-          this.passwordOutput.style.transform = 'scale(1)';
+          this.passwordOutput.style.scale = '1';
         }, 150);
       }
     }, 100);
   }
 
+  /**
+   * Calculate password strength based on length and character variety
+   * @param {string} password - The password to evaluate
+   * @returns {number} Strength score (0-4)
+   * @private
+   */
   calculatePasswordStrength(password) {
     let score = 0;
     
@@ -209,6 +258,11 @@ class PasswordGenerator {
     return Math.min(score, 4); // Cap at 4 for strength levels
   }
 
+  /**
+   * Update the strength meter display
+   * @param {number} strength - The strength score (0-4)
+   * @private
+   */
   updateStrengthMeter(strength) {
     // Clear all bars
     this.strengthBars.forEach(bar => {
@@ -261,6 +315,10 @@ class PasswordGenerator {
     }
   }
 
+  /**
+   * Copy password to clipboard
+   * @private
+   */
   async copyPassword() {
     const password = this.passwordOutput.value;
     
@@ -277,6 +335,11 @@ class PasswordGenerator {
     }
   }
 
+  /**
+   * Fallback copy method for older browsers
+   * @param {string} text - The text to copy
+   * @private
+   */
   fallbackCopyTextToClipboard(text) {
     const textArea = document.createElement('textarea');
     textArea.value = text;
@@ -297,6 +360,10 @@ class PasswordGenerator {
     document.body.removeChild(textArea);
   }
 
+  /**
+   * Show copy success message and update icon
+   * @private
+   */
   showCopySuccess() {
     // Create success message if it doesn't exist
     let successMessage = document.querySelector('.copy-success');
@@ -330,20 +397,34 @@ class PasswordGenerator {
   }
 }
 
-// Initialize the app when DOM is loaded
+/**
+ * Initialize the app when DOM is loaded
+ */
 document.addEventListener('DOMContentLoaded', () => {
   new PasswordGenerator();
 });
 
-// Add some utility functions for debugging
+/**
+ * Utility functions for debugging and testing
+ * @type {Object}
+ */
 window.passwordGenerator = {
+  /**
+   * Generate a test password with specified options
+   * @param {number} length - Password length
+   * @param {Object} options - Password options
+   * @param {boolean} [options.uppercase=true] - Include uppercase letters
+   * @param {boolean} [options.lowercase=true] - Include lowercase letters
+   * @param {boolean} [options.numbers=true] - Include numbers
+   * @param {boolean} [options.symbols=true] - Include symbols
+   */
   generateTestPassword: (length = 8, options = {}) => {
     const generator = new PasswordGenerator();
     generator.lengthSlider.value = length;
-    generator.uppercaseCheckbox.checked = options.uppercase !== false;
-    generator.lowercaseCheckbox.checked = options.lowercase !== false;
-    generator.numbersCheckbox.checked = options.numbers !== false;
-    generator.symbolsCheckbox.checked = options.symbols !== false;
+    generator.uppercaseCheckbox.checked = options.uppercase ?? true;
+    generator.lowercaseCheckbox.checked = options.lowercase ?? true;
+    generator.numbersCheckbox.checked = options.numbers ?? true;
+    generator.symbolsCheckbox.checked = options.symbols ?? true;
     generator.generatePassword();
   }
 }; 
