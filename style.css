@@ -205,6 +205,9 @@ h1 {
 
 .password-output::placeholder {
   color: var(--color-light-grey);
+  font-size: inherit;
+  font-weight: inherit;
+
 }
 
 .copy-btn {
